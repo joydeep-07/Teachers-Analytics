@@ -1,1 +1,14 @@
 @import "tailwindcss";
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 font-sans antialiased selection:bg-cyan-100 selection:text-cyan-900;
+  }
+}
+
+/* Custom utility for clean light-mode cards without glassmorphism */
+@layer utilities {
+  .card-light {
+    @apply bg-white border border-slate-200 shadow-sm rounded-xl overflow-hidden;
+  }
+}

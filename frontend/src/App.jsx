@@ -1,29 +1,62 @@
 import React from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { AuthProvider } from "./context/AuthContext";
 
+// Layouts
 import Root from "./layouts/Root";
+import DashboardLayout from "./components/layout/DashboardLayout";
+import ProtectedRoute from "./components/common/ProtectedRoute";
 
 // Pages
-const Home = () => <h1>Home Page</h1>;
-const Admin = () => <h1>Admin Page</h1>;
-const Profile = () => <h1>Profile Page</h1>;
-const AdminLogin = () => <h1>Admin Login Page</h1>;
-const Login = () => <h1>Login Page</h1>;
+import Home from "./pages/Home";
+import Login from "./pages/auth/Login";
+
+// Admin Pages
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ManageTeachers from "./pages/admin/ManageTeachers";
+
+// Teacher Pages
+import TeacherDashboard from "./pages/teacher/TeacherDashboard";
+import MyAttendance from "./pages/teacher/MyAttendance";
 
 const App = () => {
   return (
-    <Router>
-      <Routes>
-        {/* Root Layout */}
-        <Route path="/" element={<Root />}>
-          <Route index element={<Home />} />
-          <Route path="admin" element={<Admin />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="admin-login" element={<AdminLogin />} />
-          <Route path="login" element={<Login />} />
-        </Route>
-      </Routes>
-    </Router>
+    <AuthProvider>
+      <Router>
+        <Routes>
+          {/* Public Routes */}
+          <Route path="/" element={<Root />}>
+            <Route index element={<Home />} />
+            <Route path="login" element={<Login />} />
+          </Route>
+
+          {/* Admin Routes */}
+          <Route path="/admin" element={
+            <ProtectedRoute allowedRoles={['Admin']}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<AdminDashboard />} />
+            <Route path="teachers" element={<ManageTeachers />} />
+            <Route path="attendance" element={<div>Admin Attendance</div>} />
+            <Route path="leaves" element={<div>Admin Leaves</div>} />
+            <Route path="salary" element={<div>Admin Salary</div>} />
+          </Route>
+
+          {/* Teacher Routes */}
+          <Route path="/teacher" element={
+            <ProtectedRoute allowedRoles={['Teacher', 'Admin']}>
+              <DashboardLayout />
+            </ProtectedRoute>
+          }>
+            <Route index element={<TeacherDashboard />} />
+            <Route path="attendance" element={<MyAttendance />} />
+            <Route path="leaves" element={<div>My Leaves</div>} />
+            <Route path="salary" element={<div>My Salary</div>} />
+          </Route>
+        </Routes>
+      </Router>
+    </AuthProvider>
   );
 };
 
