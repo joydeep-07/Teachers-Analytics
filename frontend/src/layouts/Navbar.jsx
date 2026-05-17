@@ -11,7 +11,7 @@ const Navbar = () => {
     // { name: "Home", path: "/" },
     // { name: "Admin", path: "/admin" },
     // { name: "Profile", path: "/profile" },
-    { name: "Admin Login", path: "/admin-login" },
+    // { name: "Admin Login", path: "/admin-login" },
     { name: "User Login", path: "/login" },
   ];
 
