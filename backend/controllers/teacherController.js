@@ -74,8 +74,80 @@ const registerTeacher = async (req, res) => {
     }
 };
 
+
+// @desc    Get teacher by ID
+// @route   GET /api/teachers/:id
+// @access  Private/Admin
+const getTeacherById = async (req, res) => {
+    try {
+        const teacher = await Teacher.findById(req.params.id);
+
+        if (teacher) {
+            res.json(teacher);
+        } else {
+            res.status(404).json({
+                message: 'Teacher not found'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
+// @desc    Update teacher
+// @route   PUT /api/teachers/:id
+// @access  Private/Admin
+const updateTeacher = async (req, res) => {
+    try {
+        const teacher = await Teacher.findById(req.params.id);
+
+        if (teacher) {
+            teacher.name =
+                req.body.name || teacher.name;
+
+            teacher.email =
+                req.body.email || teacher.email;
+
+            teacher.phone =
+                req.body.phone || teacher.phone;
+
+            teacher.department =
+                req.body.department || teacher.department;
+
+            teacher.teacherType =
+                req.body.teacherType || teacher.teacherType;
+
+            teacher.salary =
+                req.body.salary || teacher.salary;
+
+            teacher.joiningDate =
+                req.body.joiningDate || teacher.joiningDate;
+
+            teacher.role =
+                req.body.role || teacher.role;
+
+            const updatedTeacher =
+                await teacher.save();
+
+            res.json(updatedTeacher);
+        } else {
+            res.status(404).json({
+                message: 'Teacher not found'
+            });
+        }
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        });
+    }
+};
+
 module.exports = {
     getTeachers,
     getTeacherProfile,
-    registerTeacher
+    registerTeacher,
+    getTeacherById,
+    updateTeacher
 };
