@@ -3,6 +3,7 @@ import { Card, CardHeader, CardContent } from '../../components/common/Card';
 import { Table } from '../../components/common/Table';
 import { Button } from '../../components/common/Button';
 import { getTeachers } from '../../services/teacherService';
+import { Link } from 'react-router-dom';
 
 const ManageTeachers = () => {
   const [teachers, setTeachers] = useState([]);
@@ -37,7 +38,9 @@ const ManageTeachers = () => {
         </span>
       </td>
       <td className="p-4 space-x-2">
-        <Button variant="outline" className="text-xs py-1 px-2">Edit</Button>
+        <Link to={`/admin/teachers/${teacher._id}`}>
+          <Button variant="outline" className="text-xs py-1 px-2">Edit</Button>
+        </Link>
       </td>
     </tr>
   );
@@ -46,7 +49,9 @@ const ManageTeachers = () => {
     <div className="space-y-6">
       <div className="flex justify-between items-center">
         <h1 className="text-2xl font-bold text-slate-900">Manage Teachers</h1>
-        <Button variant="primary">Add Teacher</Button>
+        <Link to="/admin/register-teacher">
+          <Button variant="primary">Add Teacher</Button>
+        </Link>
       </div>
       
       <Card>

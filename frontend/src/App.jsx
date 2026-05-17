@@ -18,6 +18,7 @@ import ManageTeachers from "./pages/admin/ManageTeachers";
 // Teacher Pages
 import TeacherDashboard from "./pages/teacher/TeacherDashboard";
 import MyAttendance from "./pages/teacher/MyAttendance";
+import RegisterTeacher from "./pages/admin/RegisterTeacher";
 
 const App = () => {
   return (
@@ -31,24 +32,31 @@ const App = () => {
           </Route>
 
           {/* Admin Routes */}
-          <Route path="/admin" element={
-            <ProtectedRoute allowedRoles={['Admin']}>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }>
+          <Route
+            path="/admin"
+            element={
+              <ProtectedRoute allowedRoles={["Admin"]}>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<AdminDashboard />} />
             <Route path="teachers" element={<ManageTeachers />} />
             <Route path="attendance" element={<div>Admin Attendance</div>} />
             <Route path="leaves" element={<div>Admin Leaves</div>} />
             <Route path="salary" element={<div>Admin Salary</div>} />
+            <Route path="register-teacher" element={<RegisterTeacher/>} />
           </Route>
 
           {/* Teacher Routes */}
-          <Route path="/teacher" element={
-            <ProtectedRoute allowedRoles={['Teacher', 'Admin']}>
-              <DashboardLayout />
-            </ProtectedRoute>
-          }>
+          <Route
+            path="/teacher"
+            element={
+              <ProtectedRoute allowedRoles={["Teacher", "Admin"]}>
+                <DashboardLayout />
+              </ProtectedRoute>
+            }
+          >
             <Route index element={<TeacherDashboard />} />
             <Route path="attendance" element={<MyAttendance />} />
             <Route path="leaves" element={<div>My Leaves</div>} />

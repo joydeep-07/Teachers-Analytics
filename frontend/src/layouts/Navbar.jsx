@@ -19,10 +19,8 @@ const Navbar = () => {
           to={user ? (user.role === 'Admin' ? '/admin' : '/teacher') : '/'} 
           className="text-xl font-bold tracking-tight text-cyan-600 flex items-center gap-2"
         >
-          <div className="w-8 h-8 bg-cyan-600 text-white rounded-lg flex items-center justify-center font-bold">
-            KV
-          </div>
-          Teachers Portal
+          
+          TEACHERS ANALYTICS
         </Link>
 
         {/* Desktop Menu */}
