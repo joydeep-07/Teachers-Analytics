@@ -9,21 +9,23 @@ const ManageTeachers = () => {
   const [teachers, setTeachers] = useState([]);
   const [loading, setLoading] = useState(true);
 
-  useEffect(() => {
-    const fetchTeachers = async () => {
-      try {
-        const data = await getTeachers();
-        if (data.success) {
-          setTeachers(data.data);
-        }
-      } catch (error) {
-        console.error("Failed to fetch teachers", error);
-      } finally {
-        setLoading(false);
-      }
-    };
-    fetchTeachers();
-  }, []);
+ useEffect(() => {
+   const fetchTeachers = async () => {
+     try {
+       const data = await getTeachers();
+
+       console.log(data);
+
+       setTeachers(data);
+     } catch (error) {
+       console.error("Failed to fetch teachers", error);
+     } finally {
+       setLoading(false);
+     }
+   };
+
+   fetchTeachers();
+ }, []);
 
   const headers = ['Name', 'Employee ID', 'Department', 'Type', 'Actions'];
 
